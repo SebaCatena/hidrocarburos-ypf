@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gas, petróleo y YPF · Sebastián Catenacci</title>
+<meta name="description" content="Análisis de la producción argentina de hidrocarburos: gas versus petróleo, participación de YPF frente a otros productores e ingresos en dólares. Datos oficiales.">
+<meta property="og:title" content="El gas creció, YPF se quedó">
+<meta property="og:description" content="Treinta años de hidrocarburos argentinos: el gas creció 71% y YPF perdió 15 puntos de participación. Datos oficiales y reproducibles.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sebacatena.github.io/hidrocarburos-ypf/">
+<meta property="og:image" content="https://sebacatena.github.io/hidrocarburos-ypf/graficos/02_participacion_ypf.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root {
+  --tinta: #0f172a;
+  --tinta-suave: #334155;
+  --gris: #64748b;
+  --borde: #e2e8f0;
+  --fondo: #f8fafc;
+  --verde: #0f766e;
+  --acento: #b45309;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--tinta);
+  background: #ffffff;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.hero {
+  background: linear-gradient(135deg, #0f172a 0%, #78350f 55%, #b45309 100%);
+  color: #ffffff;
+  padding: 72px 24px 64px;
+}
+.hero .contenedor { max-width: 900px; margin: 0 auto; }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fcd34d;
+  margin: 0 0 16px;
+}
+.hero h1 {
+  font-size: clamp(34px, 5.5vw, 56px);
+  line-height: 1.08;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+.hero .lead {
+  font-size: clamp(17px, 2.1vw, 21px);
+  color: #fde68a;
+  max-width: 760px;
+  margin: 0 0 26px;
+}
+.hero .meta { font-size: 14px; color: #d6d3d1; margin: 0; }
+main { max-width: 900px; margin: 0 auto; padding: 0 24px 72px; }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin: -34px 0 48px;
+  position: relative;
+}
+.card {
+  background: #ffffff;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.35);
+}
+.card .rotulo {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gris);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.card .valor {
+  font-size: clamp(24px, 3.4vw, 32px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--verde);
+  letter-spacing: -0.02em;
+}
+.card .detalle { font-size: 13px; color: var(--gris); margin: 8px 0 0; }
+section { margin: 0 0 56px; }
+section h2 {
+  font-size: clamp(23px, 3vw, 30px);
+  line-height: 1.2;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+section p { color: var(--tinta-suave); margin: 0 0 16px; }
+section p strong { color: var(--tinta); }
+section ul { color: var(--tinta-suave); }
+figure { margin: 24px 0 8px; }
+figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: #ffffff;
+}
+figcaption { font-size: 13px; color: var(--gris); margin-top: 10px; }
+.destacado {
+  border-left: 4px solid var(--acento);
+  background: #fffbeb;
+  padding: 16px 20px;
+  border-radius: 0 10px 10px 0;
+  margin: 22px 0;
+  color: #92400e;
+  font-size: 15px;
+}
+.tabla-envoltorio { overflow-x: auto; margin: 20px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { padding: 10px 14px; border-bottom: 1px solid var(--borde); text-align: left; }
+th {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gris);
+}
+td.numerico, th.numerico { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: var(--fondo); }
+.metodo {
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 26px 28px;
+}
+.metodo h2 { font-size: 24px; }
+.metodo ul { padding-left: 20px; }
+.metodo li { margin-bottom: 8px; }
+code {
+  font-family: "Cascadia Code", Consolas, monospace;
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 0.88em;
+}
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 18px 20px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 13.5px;
+}
+pre code { background: none; padding: 0; color: inherit; }
+footer {
+  border-top: 1px solid var(--borde);
+  padding-top: 26px;
+  color: var(--gris);
+  font-size: 13.5px;
+}
+footer a { color: var(--acento); }
+@media (max-width: 640px) {
+  .hero { padding: 48px 20px 56px; }
+  main { padding: 0 20px 56px; }
+  .cards { margin-top: -26px; }
+  section { margin-bottom: 44px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="contenedor">
+    <p class="eyebrow">Proyecto de análisis de datos · Energía e hidrocarburos</p>
+    <h1>El gas creció, YPF se quedó:<br>quién ganó el terreno en Argentina</h1>
+    <p class="lead">Treinta años de producción de petróleo y gas, la participación de YPF
+    frente a otros productores y los dólares que entraron por el sector.</p>
+    <p class="meta">Por Sebastián Catenacci · Fuente: Secretaría de Energía y Balance
+    Cambiario vía datos.gob.ar · Crudo hasta 01/11/2025 · gas hasta
+    01/09/2026 · Publicado: 20/11/2026</p>
+  </div>
+</header>
+
+<main>
+  <div class="cards">
+    <div class="card">
+      <p class="rotulo">Crecimiento del gas</p>
+      <p class="valor">71%</p>
+      <p class="detalle">Desde 01/01/1996, en volumen físico</p>
+    </div>
+    <div class="card">
+      <p class="rotulo">Crecimiento del crudo</p>
+      <p class="valor">10%</p>
+      <p class="detalle">Mismo período y misma base</p>
+    </div>
+    <div class="card">
+      <p class="rotulo">YPF en petróleo</p>
+      <p class="valor">47,1%</p>
+      <p class="detalle">Participación al 01/11/2025</p>
+    </div>
+    <div class="card">
+      <p class="rotulo">YPF en gas</p>
+      <p class="valor">19,5%</p>
+      <p class="detalle">Era 34,8% en 1999</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>La matriz se volcó al gas</h2>
+    <p>Desde 01/01/1996, la producción de gas natural subió
+    <strong>71,0%</strong> (hasta 01/09/2026),
+    mientras que la del petróleo crudo apenas cambió
+    <strong>10,3%</strong> (hasta
+    01/11/2025). Cada serie se mide hasta su último mes disponible:
+    los meses que se comparan son <strong>369 en total</strong>,
+    de series oficiales de la Secretaría de Energía.</p>
+    <p>Ambas líneas empiezan en 100 para poder compararlas aunque sus unidades sean
+    distintas: el crudo se mide en miles de metros cúbicos y el gas en millones.</p>
+    <div class="destacado">
+      Acá está la headline: en volumen, el gas creció casi siete veces más que el
+      petróleo en el mismo período. No es un cambio de precios, es un cambio de qué
+      se extrae.
+    </div>
+    <figure>
+      <img src="graficos/01_crudo_vs_gas.png"
+           alt="Líneas con la producción de petróleo y gas, indexadas a 100">
+      <figcaption>Índice 100 = 01/01/1996. Volúmenes físicos, no dólares.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>YPF: estable en crudo, en retroceso en gas</h2>
+    <p>En petróleo, YPF pasó de <strong>44,3%</strong> a
+    <strong>47,1%</strong> de la producción nacional: se mantuvo
+    e incluso ganó un poco. En gas, en cambio, cayó de
+    <strong>34,8%</strong> a
+    <strong>19,5%</strong>, una pérdida de
+    <strong>15,3%</strong> de participación.</p>
+    <p>Es la misma empresa con dos comportamientos distintos según el hidrocarburo.
+    Por eso un promedio de "producción total de YPF" escondería la historia.</p>
+    <figure>
+      <img src="graficos/02_participacion_ypf.png"
+           alt="Participación de YPF en crudo y en gas a lo largo del tiempo">
+      <figcaption>Participación de YPF sobre el total nacional de cada hidrocarburo.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Quién ocupó ese lugar</h2>
+    <p>El gas que dejó YPF no desapareció: lo produjeron otros. Estas son las
+    participaciones de las empresas con serie mensual pública (en millones de m³
+    convertidos desde miles de m³):</p>
+    <div class="tabla-envoltorio">
+      <table>
+        <thead><tr><th>Productor</th><th class="numerico">Inicio</th>
+        <th class="numerico">Último dato</th><th class="numerico">Cambio (puntos)</th></tr></thead>
+        <tbody>
+          <tr><td>YPF</td><td class="numerico">34,8%</td><td class="numerico">19,5%</td><td class="numerico"><strong>-15,3%</strong></td></tr>
+<tr><td>Total Austral</td><td class="numerico">10,6%</td><td class="numerico">8,8%</td><td class="numerico"><strong>-1,8%</strong></td></tr>
+<tr><td>Pluspetrol</td><td class="numerico">1,6%</td><td class="numerico">11,0%</td><td class="numerico"><strong>9,4%</strong></td></tr>
+<tr><td>Resto de productores</td><td class="numerico">53,0%</td><td class="numerico">60,7%</td><td class="numerico"><strong>7,7%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>El "resto" se calcula por diferencia entre el total nacional y las tres
+    empresas informadas, así que incluye a todos los demás productores.</p>
+    <figure>
+      <img src="graficos/03_productores_gas.png"
+           alt="Gráfico apilado con la participación de cada productor de gas">
+      <figcaption>Participación porcentual en la producción total de gas natural.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Los dólares, en dólares</h2>
+    <p>Los cobros por petróleo del balance cambiario pasaron de
+    <strong>US$ 164 millones</strong> a
+    <strong>US$ 1.318 millones</strong> por mes:
+    <strong>705%</strong>. Las exportaciones de gas de
+    petróleo y otros hidrocarburos pasaron de US$ 4,1 a
+    US$ 154,5 millones.</p>
+    <div class="destacado">
+      Acá NO deflacto con el IPC: estas series están en dólares. Usar el índice de
+      precios argentino sería mezclar monedas. Es el error inverso al del proyecto
+      de recaudación, donde el IPC sí era el deflactor correcto.
+    </div>
+    <p>La línea fina es el dato mensual y la gruesa, el promedio móvil de 12 meses:
+    el sector es muy volátil y el promedio ayuda a ver la tendencia.</p>
+    <figure>
+      <img src="graficos/04_ingresos_usd.png"
+           alt="Cobros por petróleo y exportaciones de hidrocarburos en millones de dólares">
+      <figcaption>Millones de dólares por mes. Línea gruesa: promedio móvil de 12 meses.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>En una mirada</h2>
+    <p>La participación de YPF en crudo se movió de 44,3% a
+    47,1%, mientras que en gas cayó de 34,8%
+    a 19,5%. El gráfico resume las dos caras de la misma empresa.</p>
+    <figure>
+      <img src="graficos/05_cambio_participacion.png"
+           alt="Barras comparando la participación inicial y final de YPF en crudo y gas">
+      <figcaption>Comparación entre el primer y el último mes disponible de cada serie.</figcaption>
+    </figure>
+  </section>
+
+  <section class="metodo">
+    <h2>Cómo se hizo (y dónde está la trampa)</h2>
+    <p>Todo el proceso es reproducible: los datos se descargan de la API oficial y
+    el informe se genera con un script de Python.</p>
+    <ul>
+      <li><strong>Fuentes:</strong> Secretaría de Energía (producción por empresa y
+      total) y Balance Cambiario del BCRA (cobros por petróleo), vía <code>datos.gob.ar</code>.</li>
+      <li><strong>Series:</strong> 8 series oficiales en 4 grupos, guardadas como CSV
+      junto con sus metadatos en <code>datos/fuente.json</code>.</li>
+      <li><strong>Conversiones:</strong> la producción de YPF en crudo viene en m³ y
+      el total en miles de m³ (dividir por 1.000). El gas de YPF y de las otras
+      empresas viene en miles de m³ y el total en millones (dividir por 1.000 otra vez).</li>
+      <li><strong>Período:</strong> matriz 01/01/1996 a
+      01/09/2026 (369 meses);
+      participaciones 01/01/1999 a 01/08/2026.</li>
+      <li><strong>Participación:</strong> producción de la empresa ÷ producción total
+      nacional × 100. Se asume que la serie total incluye a todas las empresas.</li>
+      <li><strong>Actualizar:</strong> <code>python descargar_datos.py</code> y después
+      <code>python analisis.py</code>. En Windows también podés hacer doble clic en
+      <code>actualizar.bat</code>.</li>
+    </ul>
+    <p><strong>Limitaciones:</strong> las series no terminan en el mismo mes (el crudo
+    total llega hasta 01/11/2025 y el gas hasta 01/09/2026);
+    por eso cada indicador informa su propia fecha y las participaciones usan solo los
+    meses en común. "Cobros por petróleo" y
+    "exportaciones" no son exactamente lo mismo: el primero registra entradas de
+    divisas por el rubro petrolero y el segundo, ventas externas declaradas. El
+    trabajo es descriptivo: no es un pronóstico ni una recomendación de inversión.</p>
+  </section>
+
+  <footer>
+    <p>Hecho por <strong>Sebastián Catenacci</strong> con Python, pandas y matplotlib.
+    Código y datos: <a href="https://github.com/SebaCatena/hidrocarburos-ypf">github.com/SebaCatena/hidrocarburos-ypf</a>.</p>
+    <p>Datos públicos de la Secretaría de Energía y del Banco Central.
+    Informe generado automáticamente desde <code>analisis.py</code>.</p>
+  </footer>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "descargado": "2026-11-20",
+  "grupos": {
+    "produccion_total.csv": {
+      "dataset": "Producción y ventas de petróleo y derivados",
+      "organismo": "Secretaría de Energía, Ministerio de Economía",
+      "desde": "1996-01-01",
+      "hasta": "2026-09-01",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=363.3_PRODUCCIONUDO__28,364.3_PRODUCCIoNRAL__25&limit=5000",
+      "series": [
+        {
+          "id": "363.3_PRODUCCIONUDO__28",
+          "columna": "crudo_total",
+          "unidad": "Miles metros cúbicos"
+        },
+        {
+          "id": "364.3_PRODUCCIoNRAL__25",
+          "columna": "gas_total",
+          "unidad": "En millones de metros cúbicos"
+        }
+      ]
+    },
+    "ypf_produccion.csv": {
+      "dataset": "Producción y Ventas de Petróleo, Gas y Derivados por Empresa",
+      "organismo": "Secretaría de Energía, Ministerio de Economía",
+      "desde": "1999-01-01",
+      "hasta": "2026-08-01",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=365.3_PRODUCCION_SA__35,365.3_PRODUCCION_SA__32&limit=5000",
+      "series": [
+        {
+          "id": "365.3_PRODUCCION_SA__35",
+          "columna": "ypf_crudo",
+          "unidad": "Metros Cúbicos"
+        },
+        {
+          "id": "365.3_PRODUCCION_SA__32",
+          "columna": "ypf_gas",
+          "unidad": "Miles de Metros Cúbicos"
+        }
+      ]
+    },
+    "otros_productores.csv": {
+      "dataset": "Producción y Ventas de Petróleo, Gas y Derivados por Empresa",
+      "organismo": "Secretaría de Energía, Ministerio de Economía",
+      "desde": "1999-01-01",
+      "hasta": "2026-08-01",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=365.3_PRODUCCION.A.__42,365.3_PRODUCCION_SA__39&limit=5000",
+      "series": [
+        {
+          "id": "365.3_PRODUCCION.A.__42",
+          "columna": "total_austral_gas",
+          "unidad": "Miles de Metros Cúbicos"
+        },
+        {
+          "id": "365.3_PRODUCCION_SA__39",
+          "columna": "pluspetrol_gas",
+          "unidad": "Miles de Metros Cúbicos"
+        }
+      ]
+    },
+    "ingresos.csv": {
+      "dataset": "Cobros y pagos por bienes sectorial - Balance Cambiario",
+      "organismo": "Banco Central de la República Argentina (BCRA)",
+      "desde": "1992-01-01",
+      "hasta": "2026-09-01",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=184.1_BIENES_COBLEO_0_M_22,75.3_GPOH_0_M_32&limit=5000",
+      "series": [
+        {
+          "id": "184.1_BIENES_COBLEO_0_M_22",
+          "columna": "cobros_petroleo",
+          "unidad": "Millones de dólares"
+        },
+        {
+          "id": "75.3_GPOH_0_M_32",
+          "columna": "exportaciones_hidrocarburos",
+          "unidad": "Millones de dólares"
+        }
+      ]
+    }
+  }
+}
